@@ -1,0 +1,240 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+struct link*AppendNode(struct link *head);
+void DisplyNode(struct link *head);
+struct link*DeleteNode(struct link *head, int nodedata);
+void DeleteMemory(struct link *head);
+struct link*InsertNode(struct link*head,int nodedata);
+struct link*SortNode(struct link*head);
+int LengthNode(struct link *head);
+struct link*reverse(struct link *head);
+void searchmid(struct link *head);
+struct link
+{
+	int data;
+	struct link *next;
+};
+int main()
+{
+	int i = 0;
+	int nodedata=0;
+	char c;
+	struct link*head = NULL;
+	printf("Do you want to append a new node(Y/N)?");
+	scanf(" %c", &c);
+	while (c == 'Y' || c == 'y')
+	{
+		head = AppendNode(head);
+		DisplyNode(head);
+		printf("Do you want to append a new node(Y/N)?");
+		scanf(" %c", &c);
+		i++;
+	}
+	//printf("%d new nodes have been apended!\n", i);
+	//scanf("%d", &nodedata);
+	//head = DeleteNode(head, nodedata);
+	//head = InsertNode(head, nodedata);
+	/*head = SortNode(head);*/
+	/*head = reverse(head);*/
+	searchmid(head);
+	DisplyNode(head);
+	DeleteMemory(head);
+	system("pause");
+	return 0;
+}
+struct link* AppendNode(struct link*head)//新建链表
+{
+	struct link*p = NULL, *pr = head;
+	int data;
+	p = (struct link*)malloc(sizeof(struct link));
+	if (p == NULL)
+	{
+		printf("No enough memory to allocate!\n");
+		exit(0);
+
+	}
+	if (head == NULL)
+	{
+		head = p;
+	}
+	else
+	{
+		while (pr->next != NULL)
+		{
+			pr = pr->next;
+		}
+		pr->next = p;
+	}
+		printf("Input node data:");
+		scanf("%d", &data);
+		p->data = data;
+		p->next = NULL;
+		return head;
+}
+void DisplyNode(struct link *head)//打印节点
+{
+	struct link *p = head;
+	int j = 1;
+	while (p != NULL)
+	{
+		printf("%5d%10d\n", j, p->data);
+		p = p->next;
+		j++;
+	}
+}
+
+void DeleteMemory(struct link *head)//清除内存
+{
+	struct link *p = head, *pr = NULL;
+	while (p != NULL)
+	{
+		pr = p;
+		p = p->next;
+		free(pr);
+	}
+}
+struct link*DeleteNode(struct link *head, int nodedata)//删除节点
+{
+	struct link*p = head, *pr = head;
+	if (head == NULL)
+	{
+		printf("Linked Table is empty!\n");
+		return head;
+	}
+	while (nodedata != p->data&&p ->next != NULL)
+	{
+		pr = p;
+		p = p ->next;
+	}
+	if (nodedata == p->data)
+	{
+		if (p == head)
+		{
+			head = p->next;
+		}
+		else
+		{
+			pr->next = p->next;
+		}
+		free(p);
+	}
+	else
+		printf("This Node has not been found!\n");
+	return head;
+}
+struct link*InsertNode(struct link*head, int nodedata)//插入节点
+{
+	struct link *pr = head, *p = head, *temp = NULL;
+	p = (struct link*)malloc(sizeof(struct link));
+	if (p == NULL)
+	{
+		printf("No enough memory!\n");
+		exit(0);
+	}
+	p->next = NULL;
+	p->data = nodedata;
+	if (head == NULL)
+	{
+		head = p;
+	}
+	else
+	{
+		while (pr->data < nodedata&&pr->next != NULL)
+		{
+			temp = pr;
+			pr = pr->next;
+		}
+		if (pr->data >= nodedata)
+		{
+			if (pr == head)
+			{
+				p->next = head;
+				head = p;
+			}
+			else
+			{
+				pr = temp;
+				p->next = pr->next;
+				pr->next = p;
+			}
+		}
+		else
+		{
+			pr->next = p;
+		}
+	}
+	return head;
+}
+struct link* SortNode(struct link *head) //节点数据由高到低 冒泡
+{
+	struct link *pr = head;
+	int i = 0, j = 0, temp = 0;
+	int k = 0;
+	k = LengthNode(head);
+	/*if (head == NULL || head->next == NULL)
+	{
+		return head;
+	}*/
+	for (i = 1;i < k;i++)
+	{
+		pr = head;
+		for (j = 0;j < k-i;j++)
+		{
+			if (pr->data < pr->next->data)
+			{
+				temp = pr->data;
+				pr->data = pr->next->data;
+				pr->next->data = temp;
+			}
+			pr = pr->next;
+		}
+	}
+	return head;
+}
+int LengthNode(struct link *head)//统计节点数量
+{
+	struct link *p = head;
+	int j = 0;
+	while (p != NULL)
+	{
+		p = p->next;
+		j++;
+	}
+	return j;
+}
+struct link*reverse(struct link *head)//单链表逆置
+{
+	struct link*p1 =head, *p2 = p1->next, *p3;
+	if (head == NULL || head->next == NULL)
+	{
+		return head;
+	}
+	while (p2)
+	{
+		p3 = p2->next;
+		p2->next = p1;
+		p1 = p2;
+		p2 = p3;
+	}
+	head->next = NULL;
+	head = p1;
+	return head;
+}
+void searchmid(struct link *head)//快慢指针，找到中间的节点 偶数中间，奇数中间两个的后一个
+{
+	struct link* p = head, *pr = head;
+	if (head == NULL || head ->next == NULL)
+	{
+		return head;
+	}
+	int mid;
+	while (pr&&pr->next)
+	{
+		pr = pr->next->next;
+		p = p->next;
+	}
+	mid = p->data;
+	printf("%d\n", mid);
+}
