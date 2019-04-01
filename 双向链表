@@ -1,0 +1,136 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+typedef struct student
+{
+	int data;
+	struct student *next;
+	struct student *pre;
+}dnode;
+dnode *create(int n);
+void print(dnode* head);
+dnode*del(dnode *head, int num);
+dnode *insert(dnode *head, int num);
+int main()
+{
+	int n;
+	int num;
+	dnode *head;
+	printf("请输入数量:");
+	scanf("%d",&n);
+	head = create(n);
+	print(head);
+	/*printf("请输入要删除的数:");
+	scanf("%d", &num);
+	head = del(head,num);
+	print(head);*/
+	printf("请输入要添加的数:");
+	scanf("%d", &num);
+	head = insert(head, num);
+	print(head);
+	system("pause");
+	return 0;
+}
+dnode *create(int n)//双链表的建立
+{
+	dnode *head, *p, *s;
+	int i;
+	if ((head = (dnode*)malloc(sizeof(dnode))) == NULL)
+	{
+		exit(0);
+	}
+	p = head;
+	for (i = 0;i < n;i++)
+	{
+		if ((s = (dnode*)malloc(sizeof(dnode))) == NULL)
+		{
+			exit(0);
+		}
+		p->next = s;
+		printf("请输入第%d个数据", i + 1);
+		scanf("%d", &s->data);
+		s->pre = p;
+		p = s;
+	}
+	head = head->next;
+	head->pre = NULL;
+	p->next = NULL;
+	return head;
+}
+
+void print(dnode* head)//双链表的打印
+{
+	dnode*p = head;
+	while (p != NULL)
+	{
+		printf("%d\n", p->data);
+		p = p->next;
+	}
+}
+
+dnode*del(dnode *head, int num)//双链表的查找
+{
+	dnode *p1, *p2;
+	p1 = head;
+	while (num != p1->data && p1->next != NULL)
+	{
+		p1 = p1->next;
+	}
+	if (num == p1->data)
+	{
+		if (p1 == head)
+		{
+			head = head = head->next;
+			head->pre = NULL;
+			free(p1);
+		}
+		else if (p1->next == NULL)
+		{
+			p1->pre->next = NULL;
+			free(p1);
+		}
+		else
+		{
+			p1->next->pre = p1->pre;
+			p1->pre->next = p1->next;
+		}
+	}
+	else
+		printf("\n%d could not been found", num);
+	return(head);
+}
+
+dnode *insert(dnode *head, int num)//插入节点
+{
+	dnode *p0, *p1;
+	p1 = head;
+	p0 = (dnode*)malloc(sizeof(dnode));
+	p0->data = num;
+	while (p0->data > p1->data&&p1->next != NULL)
+	{
+		p1 = p1->next;
+	}
+	if (p0->data <= p1->data)
+	{
+		if (head == p1)
+		{
+			p0->next = p1;
+			p1->pre = p0;
+			head = p0;
+		}
+		else
+		{
+			p1->pre->next = p0;
+			p0->next = p1;
+			p0->pre = p1->pre;
+			p1->pre = p0;
+		}
+	}
+	else
+	{
+		p1->next = p0;
+		p0->pre = p1;
+		p0->next = NULL;
+	}
+	return head;
+}
