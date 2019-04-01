@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+typedef struct student
+{
+	int data;
+	struct student *next;
+}dnode;
+dnode *create(int n);
+void print(dnode* head);
+dnode *insert(dnode*head,int k, int m,int n);
+int main()
+{
+	int n;
+	int k;
+	int m;
+	dnode *head;
+	printf("请输入数量：");
+	scanf("%d", &n);
+	printf("请输入第一个开始报数的人和出列者喊道的数：");
+	scanf("%d%d", &k,&m);
+	head = create(n);
+	print(head);
+	insert(head,k,m,n);
+	system("pause");
+	return 0;
+}
+dnode *create(int n)//循环链表的建立
+{
+	dnode *head, *p, *s;
+	int i;
+	if ((head = (dnode*)malloc(sizeof(dnode))) == NULL)
+	{
+		exit(0);
+	}
+	head->data = 0;
+	head->next = head;
+	p = head;
+	for (i = 1;i < n;i++)
+	{
+		if ((s = (dnode*)malloc(sizeof(dnode))) == NULL)
+		{
+			exit(0);
+		}
+		s->data = i;
+		s->next = p->next;
+		p->next = s;
+		p = s;
+	}
+	return head;
+}
+
+void print(dnode* head)//循环链表的打印
+{
+	dnode*p = head;
+	do
+	{
+		printf("%d\n", p->data);
+		p = p->next;
+
+	} while (p != head);
+}
+
+dnode*insert(dnode*head,int k, int m,int n)//循环链表的查找 约瑟夫环
+{
+	dnode *r, *s;
+	r = head;
+	while (k--)
+	{
+		r = head;
+		r = r->next;
+	}
+	while (n--)
+	{
+		for (int j = m - 1;j--;r = head, head = head->next);
+		r->next = head->next;
+		printf("删除的数:%d\n", head->data);
+		head = head->next;
+	}
+}
