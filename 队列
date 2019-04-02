@@ -1,0 +1,79 @@
+include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+typedef struct student
+{
+	int data;
+	struct student *next;
+}node;
+typedef struct linkqueue
+{
+	node *first, *rear;
+}queue;
+void insert(queue *HQ,int n);
+void print(queue HQ);
+void del(queue *HQ);
+int main()
+{
+	int n;
+	queue HQ;
+	printf("请输入数量：");
+	scanf("%d", &n);
+	insert(&HQ,n);
+	print(HQ);
+	del(&HQ);
+	system("pause");
+	return 0;
+}
+
+void print(queue HQ)//队列的打印
+{
+	node *p = HQ.first;
+	while(p!=NULL)
+	{
+		printf("%d\n", p->data);
+		p = p->next;
+	} 
+}
+
+void insert(queue *HQ,int n)//队列的建立
+{
+	node *s;
+	int i;
+	s = (node*)malloc(sizeof(node));
+	s->data = 0;
+	s->next = NULL;
+	HQ->first = s;
+	HQ->rear = s;
+	for (i = 1;i < n;i++)
+	{
+		s = (node*)malloc(sizeof(node));
+		s->data = i;
+		s->next = NULL;
+		HQ->rear->next = s;
+	    HQ ->rear = s;
+	}
+}
+void del(queue *HQ)
+{
+	node *p;
+	if (HQ->first == NULL)
+	{
+		printf("\n溢出");
+	}
+	else
+	{
+		p = HQ->first;
+		if (HQ->first == HQ->rear)
+		{
+			HQ->first = NULL;
+			HQ->rear = NULL;
+		}
+		else
+		{
+			printf("%d\n", p->data);
+			HQ->first = HQ->first->next;
+			free(p);
+		}
+	}
+}
