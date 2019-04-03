@@ -33,11 +33,13 @@ int main()
 void print(queue *HQ)//栈的打印
 {
 	node *p = HQ->rear;
-	while (p!= HQ->first)
-	{
-		printf("%d\n", p->data);
-		p = p->next;
-	}
+	
+		while (p != NULL)
+		{
+			printf("%d\n", p->data);
+			p = p->next;
+		}
+	
 }
 
 queue* insert(queue *HQ, int n)//入栈
@@ -68,7 +70,7 @@ queue* del(queue *HQ)//出栈
 	}
 	else
 	{
-		p = HQ->first;
+		p = HQ->rear;
 		if (HQ->first == HQ->rear)
 		{
 			HQ->first = NULL;
@@ -76,9 +78,14 @@ queue* del(queue *HQ)//出栈
 		}
 		else
 		{
-			printf("删除的数据%d\n", p->data);
+			while (p->next != HQ->first)
+			{
+				p = p->next;
+			}
+			printf("删除的数据:%d\n", HQ->first->data);
+			HQ->first = p;
 			HQ->first->next=NULL;
-			free(p);
+			free(p->next);
 		}
 		return HQ;
 	}
