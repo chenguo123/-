@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+void maopao(int*list, int length);
+void Swap(int *low, int *high);
+int main()
+{
+	int list[10];
+	int i;
+	printf("please input:\n");
+	for(i=0;i<10;i++)
+	{
+		scanf("%d", &list[i]);
+	}
+	maopao(list,10);
+	printf("output:\n");
+	for (i =0;i<10;i++)
+	{
+		printf("%d\n", list[i]);
+	}
+	system("pause");
+	return 0;
+}
+
+void maopao(int*list, int length)
+{
+	int i, j;
+	for (i = 0;i < length;i++)
+	{
+		for (j = length - 1;j >= i;j--)
+		{
+			if (list[j - 1] <= list[j])
+			{
+				Swap(&list[j - 1], &list[j]);
+			}
+		}
+	}
+}
+void Swap(int *low, int *high)
+{
+	int temp;
+	temp=*low;
+	*low = *high;
+	*high = temp;
+}
