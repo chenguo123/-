@@ -1,0 +1,44 @@
+nclude<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+void shellsort(int*list, int length);
+int main()
+{
+	int list[10];
+	int i;
+	printf("please input:\n");
+	for(i=0;i<10;i++)
+	{
+		scanf("%d", &list[i]);
+	}
+	shellsort(list,10);
+	printf("output:\n");
+	for (i =0;i<10;i++)
+	{
+		printf("%d\n", list[i]);
+	}
+	system("pause");
+	return 0;
+}
+
+void shellsort(int*list, int length)
+{
+	int i, j;
+	int increment = length;
+	int temp;
+	do 
+	{
+		increment = increment / 3 + 1;
+		for (i = increment + 1;i < length;i++)
+		{
+			if (list[i] < list[i - increment])
+			{
+				temp = list[i];
+				for (j = i - increment;j > 0 && temp < list[j];j -= increment)
+					list[j + increment] = list[j];
+				list[j + increment] = temp;
+			}
+		}
+	} while (increment > 1);
+	
+}
