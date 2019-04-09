@@ -1,0 +1,56 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int Partition(int *l, int low, int high);
+void Qsort(int *l, int low, int high);
+void Swap(int *low, int *high);
+int main()
+{
+	int list[10];
+	int i;
+	printf("please input:\n");
+	for(i=0;i<10;i++)
+	{
+		scanf("%d", &list[i]);
+	}
+	Qsort(list, 0, 9);
+	printf("output:\n");
+	for (i =0;i<10;i++)
+	{
+		printf("%d\n", list[i]);
+	}
+	system("pause");
+	return 0;
+}
+void Qsort(int *l, int low, int high)
+{
+	int pivot;
+	if (low < high)
+	{
+		pivot = Partition(l, low, high);
+		Qsort(l, low, pivot - 1);
+		Qsort(l, pivot + 1, high);
+	}
+}
+void Swap(int *low, int *high)
+{
+	int temp;
+	temp=*low;
+	*low = *high;
+	*high = temp;
+}
+int Partition(int *l, int low, int high)
+{
+	int pivotkey;
+	pivotkey = l[low];
+	while (low < high)
+	{
+		while (low < high&&l[high] >= pivotkey)
+			high--;
+		Swap(&l[low], &l[high]);
+		while (low<high&&l[low] <= pivotkey)
+			low++;
+		Swap(&l[low], &l[high]);
+	}
+	return low;
+}
