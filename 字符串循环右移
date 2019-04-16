@@ -1,0 +1,29 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#define MAX_LEN 100
+void LoopMove(char *pstr, int steps);
+int main()
+{
+	char string[MAX_LEN];
+	char *pstr=string;
+	gets(pstr);
+  getchar();
+  int n;
+  printf("please input number\n);
+  scanf("%d",&n);
+	LoopMove(pstr, n);
+	puts(pstr);
+	system("pause");
+	return 0;
+}
+void LoopMove(char *pstr, int steps)
+{
+	int n = strlen(pstr) - steps;
+	char temp[MAX_LEN];
+	strcpy(temp, pstr + n);
+	strcpy(temp + steps, pstr);
+	*(temp + strlen(pstr)) = '\0';
+	strcpy(pstr, temp);
+
+}
