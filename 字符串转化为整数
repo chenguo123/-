@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main()
+{
+	int j = 0, i = 0, sum = 0;
+	char temp[7] = "12345", str[7];
+	while (temp[i])
+	{
+		sum = sum * 10 + (temp[i] - '0');
+		printf("%d\n", sum);
+		i++;
+	}
+	printf("sum=%d\n", sum);
+	system("pause");
+	return 0;
+}
