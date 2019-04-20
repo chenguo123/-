@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+char* strnew(const char*string, const char* substr);
+int main()
+{
+	char s[20];
+	printf("please input s\n");
+	gets(s);
+	char substr[20];
+	char *sub = &substr;
+	printf("please input substr\n");
+	gets(substr);
+    char *result = NULL;
+    //调用字符更新函数
+	result = strnew(s, sub);
+	if (result == NULL)//没有找到相同的
+		return -1;
+	else
+	{
+		puts(result);
+	}
+	system("pause");
+	return 0;
+}
+//字符串更新函数
+char* strnew(char*string, char* substr)
+{
+	int allLen = strlen(string);//字符串的长度
+	int subLen = strlen(substr);//子串的长度
+	int index = 0;
+	for (int i = 0; i < allLen;i++)
+	{
+		if (i + subLen > allLen)
+			break;
+		int j = 0;
+		while (string[i + j] == substr[j])
+		{
+			j++;
+			if (j == subLen)
+			{
+				return &string[i];
+			}
+		}
+
+	}
+	return NULL;
+}
