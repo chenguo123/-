@@ -1,0 +1,68 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int count1(int n);
+int count2(int n);
+int main()
+{
+	int x;
+	printf("输入一个数：\n");
+	scanf("%d", &x);
+	printf("从0到%d一共遇到%d（%d）个1\n", x, count1(x), count2(x));
+	system("pause");
+	return 0;
+}
+
+//解法一
+int count1(int n)
+{
+	int count = 0;
+	int i, t;
+
+	//遍历1到n
+	for (i = 1;i <= n;i++)
+	{
+		t = i;
+		//依次处理当前遍历到的数字的各个位
+		while (t != 0)
+		{
+			//若为1则统计加1
+			count += ((t % 10 == 1) ? 1 : 0);
+			t /= 10;
+		}
+	}
+
+	return count;
+}
+
+//解法二：
+int count2(int n)
+{
+	int count = 0;//统计变量
+	int factor = 1;//分解因子
+	int lower = 0;//当前处理位的所有低位
+	int higher = 0;//当前处理位的所有高位
+	int curr = 0;//当前处理位
+
+	while (n / factor != 0)
+	{
+		lower = n - n / factor * factor;//求得低位
+		curr = (n / factor) % 10;//求当前位
+		higher = n / (factor * 10);//求高位
+
+		switch (curr)
+		{
+		case 0:
+			count += higher * factor;
+			break;
+		case 1:
+			count += higher * factor + lower + 1;
+			break;
+		default:
+			count += (higher + 1)*factor;
+		}
+		factor *= 10;
+	}
+
+	return count;
+}
