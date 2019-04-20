@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+void ConvertStr(char * pStr, char * pOutput);
+int main()
+{
+	char pstr1[40];
+	char poutput1[80];
+	poutput1[0] = '\0';//重要，表示第一个数
+	printf("输入一个字符串：");
+	gets(pstr1);
+	ConvertStr(pstr1,poutput1);
+	puts(poutput1);
+	system("pause");
+	return 0;
+}
+
+void ConvertStr(char * pStr, char * pOutput)
+{
+	char * pCurrent = pStr;
+	char * pNext;
+	int nCount = 1;
+	int i = 0;
+	while (*pCurrent != '\0')
+	{
+		pNext = pCurrent + 1;
+		while (*pCurrent == *pNext)  //相邻字符串比较
+		{
+			++nCount;   //相等则继续比较下一个字符
+			++pNext;
+		}
+		sprintf(pOutput + strlen(pOutput), "%c%d", *pCurrent, nCount);  //打印字符及其连续出现的个数到字符串中
+		nCount = 1;    //计数归位
+		pCurrent = pNext;   //让pCurrent指向下一次将要统计的字符
+	}
+}
