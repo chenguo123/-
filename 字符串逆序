@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main()
+{
+	char str[20],temp;
+	int i = 0, j = 0, begin, end;
+	printf("Please enter string\n");
+	gets(str);
+	//最后一个，以0为止         
+	j = strlen(str)-1;
+	//全部逆序
+	while (j > i)
+	{
+		temp = str[i];
+		str[i] = str[j];
+		str[j] = temp;
+		j--;
+		i++;
+	}
+	puts(str);
+	i = 0;
+	//局部逆序，到结束字符为止
+	while (str[i]!='\0')
+	{
+		if (str[i] != '\0')
+		{
+			begin = i;
+			//到空格为止
+			while (str[i] && str[i] != ' ')
+			{
+				i++;
+			}
+			i = i - 1;
+			end = i;
+		}
+		while (end > begin)
+		{
+			temp = str[begin];
+			str[begin] = str[end];
+			str[end] = temp;
+			end--;
+			begin++;
+		}
+		i++;
+	}
+	puts("%s\n", str);
+	
+	system("pause");
+	return 0;
+}
