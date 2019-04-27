@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+union w
+{
+	short int a;
+	char b;
+}c;
+int checkCpuendian(void)
+{
+	c.a = 1;
+	return(c.b == 1);
+}
+int main()
+{
+	if (checkCpuendian())
+		printf("The CPU is Little-endian\n");
+	else
+		printf("The CPU is Big-endian\n");
+	system("pause");
+	return 0;
+}
