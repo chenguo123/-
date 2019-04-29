@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+char* format(char *out);
+int main()
+{
+	char time[20];
+  char *out=time://指针变量初始化
+	printf("please input time\n");
+	gets(out);
+	puts(out);
+	out=format(out);
+	puts(out);
+	system("pause");
+	return 0;
+}
+char* format(char *out)
+{
+	static char time[20]="0";//静态数组初始化为0，并且函数退出后不释放
+	char*temp = time;
+	if (strlen(out) != 19)
+	{
+		printf("error");
+		exit(0);
+	}
+	while (*out != '\0')
+	{
+		if (*out == '-' || *out == ',' || *out == ':')
+		{
+			out++;
+			continue;//退出本次循环
+		}
+		else if (*out >= '0'&& *out <= '9')
+			*temp++ = *out++;
+		else
+		{
+			printf("error");
+			exit(0);
+		}
+	}
+	*temp = 'z';//末尾加z
+	puts(time);
+	return time;//字符串首地址
+
+}
