@@ -1,21 +1,11 @@
 通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序
 过程用递归进行，以达到整个数据的排序。
-
-
-
-
-
-
-
-
-
-
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
 int Partition(int *l, int low, int high);
 void Qsort(int *l, int low, int high);
-void Swap(int *low, int *high);
+void Swap(int *low, int *high);  //指针和整型数据同名，应尽量避免
 int main()
 {
 	int list[10];
@@ -36,15 +26,15 @@ int main()
 }
 void Qsort(int *l, int low, int high)
 {
-	int pivot;
-	if (low < high)
+	int pivot;//中间值的序号
+	if (low < high)//每次均判断，不满足则跳出  递归条件
 	{
-		pivot = Partition(l, low, high);
-		Qsort(l, low, pivot - 1);
-		Qsort(l, pivot + 1, high);
+		pivot = Partition(l, low, high);//分成两堆，大堆和小堆，返回中间值的序号
+		Qsort(l, low, pivot - 1);//小堆排序
+		Qsort(l, pivot + 1, high);//大堆排序
 	}
 }
-void Swap(int *low, int *high)
+void Swap(int *low, int *high)//交换数据，要用指针，才能确保数据修改成功
 {
 	int temp;
 	temp=*low;
@@ -54,15 +44,15 @@ void Swap(int *low, int *high)
 int Partition(int *l, int low, int high)
 {
 	int pivotkey;
-	pivotkey = l[low];
+	pivotkey = l[low];//初始化中间值，用堆里面序列号最小的
 	while (low < high)
 	{
 		while (low < high&&l[high] >= pivotkey)
-			high--;
-		Swap(&l[low], &l[high]);
-		while (low<high&&l[low] <= pivotkey)
+			high--;//数据大于中间值时，从高往低移动序列号
+		Swap(&l[low], &l[high]);//不满足，则交换数据
+		while (low<high&&l[low] <= pivotkey)//数据小于中间值，从低往高移动序列号
 			low++;
-		Swap(&l[low], &l[high]);
+		Swap(&l[low], &l[high]);//不满足则交换数据
 	}
-	return low;
+	return low;//返回中间值的序号
 }
