@@ -1,0 +1,78 @@
+在C语言某个程序当中需要把文本16进制转换成对应的16进制数，比如字符串"0x1a"转换成10进制的26，可以用以下函数来实现
+相关函数: atof, atoi, atol, strtod, strtoul
+表头文件: #include <stdlib.h>
+定义函数: long int strtol(const char *nptr, char **endptr, int base)；
+函数的解释说明
+　　这个函数会将参数nptr字符串根据参数base来转换成长整型数。参数base范围从2至36，或0。参数base代表采的进制方式，如base值为10则采用10进制，
+  若base值为16则采用16进制等。当base值为0时则是采用10进制做转换，但遇到如’0x’前置字符则会使用16进制做转换、
+  遇到’0’前置字符而不是’0x’的时候会使用8进制做转换。一开始strtol()会扫描参数nptr字符串，跳过前面的空格字符，直到遇上数字或正负符号才开始做转换，
+  再遇到非数字或字符串结束时('\0')结束转换，并将结果返回。若参数endptr不为NULL，则会将遇到不合条件而终止的nptr中的字符指针由endptr返回；
+  若参数endptr为NULL，则会不返回非法字符串。
+strtol是atoi的增强版
+主要体现在这几方面：
+　　1.不仅可以识别十进制整数，还可以识别其它进制的整数，取决于base参数，比如strtol("0XDEADbeE~~", NULL, 16)返回0xdeadbee的值，
+  strtol("0777~~", NULL, 8)返回0777的值。
+　　2.endptr是一个传出参数，函数返回时指向后面未被识别的第一个字符。例如char *pos; strtol("123abc", &pos, 10);，strtol返回123，
+  pos指向字符串中的字母a。如果字符串开头没有可识别的整数，例如char *pos; strtol("ABCabc", &pos, 10);，则strtol返回0，pos指向字符串开头，
+  可以据此判断这种出错的情况，而这是atoi处理不了的。
+　　3.如果字符串中的整数值超出long int的表示范围（上溢或下溢），则strtol返回它所能表示的最大（或最小）整数，并设置errno为ERANGE，
+  例如strtol("0XDEADbeef~~", NULL, 16)返回0x7fffffff并设置errno为ERANGE
+ 
+ ASCII码大小规律：数字<大写字母<小写字母
+ 
+ 1.将一个十进制数字的字符串表示转换成对应的整数。举例：将“1234”转换成整数1234.
+  /*将字符串s转换成相应的整数*/  
+int atoi(char s[])  
+{  
+    int i = 0;  
+    int n = 0;  
+    for (i = 0; s[i] >= '0' && s[i] <= '9'; ++i)  
+    {  
+        n = 10 * n + (s[i] - '0');  
+    }  
+    return n;  
+}
+
+2.将一个十六进制数的字符串表示形式转换成对应的整数。所谓的十六进制数的字符串形式是指字符串只包含'0'-'9'或者'a'-'z'或者'A'-'Z'，
+前导“0x”或者“0X”是否出现都可以。
+
+/*将大写字母转换成小写字母*/  
+int tolower(int c)  
+{  
+    if (c >= 'A' && c <= 'Z')  
+    {  
+        return c + 'a' - 'A';  
+    }  
+    else  
+    {  
+        return c;  
+    }  
+} 
+
+//将十六进制的字符串转换成整数  
+int htoi(char s[])  
+{  
+    int i = 0;  
+    int n = 0;  
+    if (s[0] == '0' && (s[1]=='x' || s[1]=='X'))  
+    {  
+        i = 2;  
+    }  
+    else  
+    {  
+        i = 0;  
+    }  
+    for (; (s[i] >= '0' && s[i] <= '9') || (s[i] >= 'a' && s[i] <= 'z') || (s[i] >='A' && s[i] <= 'Z');++i)  
+    {  
+        if (tolower(s[i]) > '9')  
+        {  
+            n = 16 * n + (10 + tolower(s[i]) - 'a');  
+        }  
+        else  
+        {  
+            n = 16 * n + (tolower(s[i]) - '0');  
+        }  
+    }  
+    return n;  
+}  
+
