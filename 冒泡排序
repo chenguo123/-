@@ -26,18 +26,18 @@ int main()
 void maopao(int*list, int length)
 {
 	int i, j;
-	for (i = 0;i < length;i++)
+	for (i = 0;i < length;i++)//从0开始循环
 	{
-		for (j = length - 1;j >= i;j--)
+		for (j = length - 1;j >= i;j--)//从尾部开始循环，直到i位置
 		{
-			if (list[j - 1] <= list[j])
+			if (list[j - 1] <= list[j])前一个小于后一个，则交换，不断交换，直到第i为止
 			{
 				Swap(&list[j - 1], &list[j]);
 			}
 		}
 	}
 }
-void Swap(int *low, int *high)
+void Swap(int *low, int *high)//交换两个数，用指针才有效，避免退出后数据才修改
 {
 	int temp;
 	temp=*low;
