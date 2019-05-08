@@ -2,20 +2,20 @@
 #include<string.h>
 #include<stdlib.h>
 
-struct link*AppendNode(struct link *head);
-void DisplyNode(struct link *head);
-struct link*DeleteNode(struct link *head, int nodedata);
-void DeleteMemory(struct link *head);
-struct link*InsertNode(struct link*head,int nodedata);
-struct link*SortNode(struct link*head);
-int LengthNode(struct link *head);
-struct link*reverse(struct link *head);
-void searchmid(struct link *head);
+struct link*AppendNode(struct link *head);//声明单向链表
+void DisplyNode(struct link *head);//显示单向链表
+struct link*DeleteNode(struct link *head, int nodedata);//删除单向链表
+void DeleteMemory(struct link *head);//释放内存
+struct link*InsertNode(struct link*head,int nodedata);//在单向链表中插入元素
+struct link*SortNode(struct link*head);//单向链表排序
+int LengthNode(struct link *head);//统计链表中数据个数
+struct link*reverse(struct link *head);//链表反转
+void searchmid(struct link *head);//链表中查找
 struct link
 {
 	int data;
 	struct link *next;
-};
+};//定义链表
 int main()
 {
 	int i = 0;
@@ -26,21 +26,21 @@ int main()
 	scanf(" %c", &c);
 	while (c == 'Y' || c == 'y')
 	{
-		head = AppendNode(head);
-		DisplyNode(head);
+		head = AppendNode(head);//新建链表
+		DisplyNode(head);//打印链表
 		printf("Do you want to append a new node(Y/N)?");
 		scanf(" %c", &c);
 		i++;
 	}
 	//printf("%d new nodes have been apended!\n", i);
 	//scanf("%d", &nodedata);
-	//head = DeleteNode(head, nodedata);
-	//head = InsertNode(head, nodedata);
-	/*head = SortNode(head);*/
-	/*head = reverse(head);*/
-	searchmid(head);
-	DisplyNode(head);
-	DeleteMemory(head);
+	//head = DeleteNode(head, nodedata);//删除链表
+	//head = InsertNode(head, nodedata);//插入链表
+	/*head = SortNode(head);*///链表排序
+	/*head = reverse(head);*///链表反转
+	searchmid(head);//链表中查找
+	DisplyNode(head);//打印链表
+	DeleteMemory(head);//内存释放
 	system("pause");
 	return 0;
 }
@@ -90,12 +90,12 @@ void DeleteMemory(struct link *head)//清除内存
 	struct link *p = head, *pr = NULL;
 	while (p != NULL)
 	{
-		pr = p;
+		pr = p;//保存当前节点地址
 		p = p->next;
-		free(pr);
+		free(pr);//释放当前节点地址的备份
 	}
 }
-struct link*DeleteNode(struct link *head, int nodedata)//删除节点
+struct link*DeleteNode(struct link *head, int nodedata)//删除指定节点
 {
 	struct link*p = head, *pr = head;
 	if (head == NULL)
@@ -105,20 +105,20 @@ struct link*DeleteNode(struct link *head, int nodedata)//删除节点
 	}
 	while (nodedata != p->data&&p ->next != NULL)
 	{
-		pr = p;
-		p = p ->next;
+		pr = p;//保存上一个节点的地址
+		p = p ->next;//指向下一个节点的地址
 	}
-	if (nodedata == p->data)
+	if (nodedata == p->data)//判断当前节点
 	{
-		if (p == head)
+		if (p == head)//删除头节点
 		{
-			head = p->next;
+			head = p->next;//将头节点的下一个节点赋给头指针
 		}
 		else
 		{
-			pr->next = p->next;
+			pr->next = p->next;//待删除节点的上一个节点指向删除节点的下一个节点
 		}
-		free(p);
+		free(p);//释放当前节点
 	}
 	else
 		printf("This Node has not been found!\n");
@@ -126,48 +126,48 @@ struct link*DeleteNode(struct link *head, int nodedata)//删除节点
 }
 struct link*InsertNode(struct link*head, int nodedata)//插入节点
 {
-	struct link *pr = head, *p = head, *temp = NULL;
-	p = (struct link*)malloc(sizeof(struct link));
+	struct link *pr = head, *p = head, *temp = NULL;//中间节点
+	p = (struct link*)malloc(sizeof(struct link));//为新节点申请内存
 	if (p == NULL)
 	{
 		printf("No enough memory!\n");
 		exit(0);
 	}
 	p->next = NULL;
-	p->data = nodedata;
-	if (head == NULL)
+	p->data = nodedata;//新节点初始化
+	if (head == NULL)//链表为空
 	{
 		head = p;
 	}
 	else
 	{
-		while (pr->data < nodedata&&pr->next != NULL)
+		while (pr->data < nodedata&&pr->next != NULL)//链表为空或者节点数据小于当前值
 		{
-			temp = pr;
-			pr = pr->next;
+			temp = pr;//保存当前节点上一个节点的地址
+			pr = pr->next;//指向下一个节点的地址
 		}
-		if (pr->data >= nodedata)
+		if (pr->data >= nodedata)//满足节点条件
 		{
-			if (pr == head)
+			if (pr == head)//在头节点处插入
 			{
-				p->next = head;
-				head = p;
+				p->next = head;//新节点的下一个指针指向原来的头节点
+				head = p;//将新节点赋给当前头指针
 			}
 			else
 			{
-				pr = temp;
-				p->next = pr->next;
-				pr->next = p;
+				pr = temp;//当前节点的上一个节点
+				p->next = pr->next;//上一个节点所指向的下一个节点地址赋给新加节点的下一个地址
+				pr->next = p;//上一个节点的下一个地址指向新加节点
 			}
 		}
 		else
 		{
-			pr->next = p;
+			pr->next = p;//在尾部加入新的节点
 		}
 	}
-	return head;
+	return head;//返回头指针
 }
-struct link* SortNode(struct link *head) //节点数据由高到低 冒泡
+struct link* SortNode(struct link *head) //节点数据由高到低 冒泡排序
 {
 	struct link *pr = head;
 	int i = 0, j = 0, temp = 0;
@@ -177,21 +177,21 @@ struct link* SortNode(struct link *head) //节点数据由高到低 冒泡
 	{
 		return head;
 	}*/
-	for (i = 1;i < k;i++)
+	for (i = 1;i < k;i++)//执行k-1次比较
 	{
-		pr = head;
-		for (j = 0;j < k-i;j++)
+		pr = head;//每次都从头节点开始
+		for (j = 0;j < k-i;j++)//执行k-i次比较
 		{
-			if (pr->data < pr->next->data)
+			if (pr->data < pr->next->data)//比较当前节点和下一个节点，下一个节点的值大则和当前节点交换位置
 			{
 				temp = pr->data;
 				pr->data = pr->next->data;
 				pr->next->data = temp;
 			}
-			pr = pr->next;
+			pr = pr->next;//指向下一个节点
 		}
 	}
-	return head;
+	return head;//返回头指针
 }
 int LengthNode(struct link *head)//统计节点数量
 {
