@@ -204,7 +204,7 @@ int LengthNode(struct link *head)//统计节点数量
 	}
 	return j;
 }
-struct link*reverse(struct link *head)//单链表逆置
+struct link*reverse(struct link *head)//单链表逆置  未搞懂
 {
 	struct link*p1 =head, *p2 = p1->next, *p3;
 	if (head == NULL || head->next == NULL)//链表为空或者为单节点
