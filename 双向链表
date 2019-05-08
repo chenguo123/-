@@ -6,11 +6,11 @@ typedef struct student
 	int data;
 	struct student *next;
 	struct student *pre;
-}dnode;
-dnode *create(int n);
-void print(dnode* head);
-dnode*del(dnode *head, int num);
-dnode *insert(dnode *head, int num);
+}dnode;//定义双向链表
+dnode *create(int n);//创建双向链表
+void print(dnode* head);//打印双向链表
+dnode*del(dnode *head, int num);//删除链表
+dnode *insert(dnode *head, int num);//在链表中插入
 int main()
 {
 	int n;
@@ -18,16 +18,16 @@ int main()
 	dnode *head;
 	printf("请输入数量:");
 	scanf("%d",&n);
-	head = create(n);
+	head = create(n);//创建链表，返回头指针
 	print(head);
 	/*printf("请输入要删除的数:");
 	scanf("%d", &num);
-	head = del(head,num);
-	print(head);*/
+	head = del(head,num);//删除链表中指定的数
+	print(head);*/ //打印链表
 	printf("请输入要添加的数:");
 	scanf("%d", &num);
-	head = insert(head, num);
-	print(head);
+	head = insert(head, num);//在链表中插入指定的树
+	print(head);//打印链表
 	system("pause");
 	return 0;
 }
