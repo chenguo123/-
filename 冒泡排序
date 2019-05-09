@@ -23,7 +23,7 @@ int main()
 	return 0;
 }
 
-void maopao(int*list, int length)
+void maopao(int*list, int length)//从大到小
 {
 	int i, j;
 	for (i = 0;i < length;i++)//从0开始循环
