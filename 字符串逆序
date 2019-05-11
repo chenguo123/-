@@ -49,3 +49,31 @@ int main()
 	system("pause");
 	return 0;
 }
+简单的程序
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int tolower(int c);
+int htoi(char s[]);
+int main()
+{
+	char str[20];
+	char str1[20];
+	char *a=str;
+	char *b=str1;
+	int c = 0;
+	printf("please input string:");
+	gets(str);
+	c = strlen(str);
+	puts(a);
+	a = &a[c - 1];
+	while(c-- !=0)
+	{
+		*b++=*a--;
+    }
+	*b = '\0';
+	puts(str1);
+	system("pause");
+	return 0;
+}
