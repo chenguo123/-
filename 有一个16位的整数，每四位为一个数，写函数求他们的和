@@ -1,0 +1,14 @@
+整数 11010100110110111
+和 1101+0101+1011+0111
+
+char SumQuaters(unsigned short n)
+{
+  char c=0;
+  int i=4;
+  do
+  {
+    c+=n&15;
+    n=n>>4;
+  }while(--i)
+  return c;
+  }
