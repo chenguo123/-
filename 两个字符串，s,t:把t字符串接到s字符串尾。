@@ -1,0 +1,18 @@
+void connect（char *s，char *t,int i)
+{
+char *q=t;
+char *p=s;
+if(q==NULL)
+return;
+while(*p!='\0')
+{
+p++;
+}
+while(*q!=0)
+{
+*p=*q;
+p++;
+q++;
+}
+*p='\0';
+}
