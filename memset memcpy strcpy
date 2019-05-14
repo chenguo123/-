@@ -2,3 +2,47 @@ memset 用来对一段内存空间全部设置为某个字符，一般用在对�
 memcpy 用来做内存拷贝，你可以拿它拷贝任何数据类型的对象，可以指定拷贝的数据长度，如 char a [100],b[50]; memcpy(b,a,sizeof(b)),用sizeof（a），会造成
 b的内存地址溢出
 strcpy只能拷贝字符串，遇到‘\0'就结束拷贝，
+
+#include<string.h>
+功能：把src所指由NULL结束的字符串复制到dest所指的数组中。
+说明：src和des所指内存区域不可以重叠且dest必须有足够的空间来容纳src的字符串。
+
+strcpy 原型
+char *strcpy(char *dest,char *src)
+{
+assert((dest!=NULL)&&(src!=NULL));
+char *address=dest;
+while((*dest++=*src++)!='\0')
+continue;
+return address;
+}
+
+#include<memory.h>
+功能：由src所指内存区域复制count个字节到dest所指内存区域
+说明：src和dest所指内存区域不能重叠，函数返回指向dest的指针
+memcpy原型
+void *memcpy（void *dest,void *src,unsigned int count)
+{
+assert((dest!=NULL)&&(src!+NULL));
+char *bdest=(char*)dest;
+char *bsrc=(char*)src;
+while(count-->0)
+*bdest++*bsrc+=;
+return dest;
+}
+
+#include<memory.h>
+功能：把buffer所指内存区域的前count个字节设置成字符c
+说明：返回指向buffer的指针。
+
+void *memeset（void *buffer，int c,int count)
+{
+assert ((buffer!=NULL));
+char*buffer2=(char*)buffer;
+while(count-->0)
+*buffer2++=c;
+return buffer;
+}
+
+
+
