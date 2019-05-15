@@ -23,11 +23,11 @@ return address;
 memcpy原型
 void *memcpy（void *dest,void *src,unsigned int count)
 {
-assert((dest!=NULL)&&(src!+NULL));
+assert((dest!=NULL)&&(src!=NULL));
 char *bdest=(char*)dest;
 char *bsrc=(char*)src;
 while(count-->0)
-*bdest++*bsrc+=;
+*bdest++=*bsrc++;
 return dest;
 }
 
