@@ -1,3 +1,4 @@
+字符串转换为整数
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -12,6 +13,36 @@ int main()
 		i++;
 	}
 	printf("sum=%d\n", sum);
+	system("pause");
+	return 0;
+}
+
+
+
+整数转换为字符串
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+int main()
+{
+	int num = 12345;
+	int i = 0, j = 0;
+	char temp[10], str[10];
+	printf("num is:%d\n", num);
+	while (num)
+	{
+		temp[i++] = num % 10 + '0';//将数字加字符0就变成相应的字符
+		num /= 10;//此时的字符串逆序
+	}
+	temp[i] = '\0';
+	i = i - 1;
+	while (i >= 0)
+	{
+		str[j++] = temp[i--];
+	}
+	str[j] = '\0';
+	puts(str);
 	system("pause");
 	return 0;
 }
