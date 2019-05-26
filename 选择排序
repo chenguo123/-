@@ -1,1 +1,32 @@
 首先在所有记录中找出值最小（或最大）的记录，顺序存放在已排序的记录序列后面，直到全部排完。
+从需要排序的队列数据中选择最小的同第一个值交换，再从剩下的部分中选择最小的与第二个交换，这样往复下去，最后实现全队列的排序。
+#include<stdio.h>
+#include<stdlib.h>
+void InsertSort(int* pdata, int count)
+{
+	int itemp,ipos,i;
+	for(i=0;i<count;i++)
+	{
+		itemp = pdata[i];
+		ipos = i-1;
+		while ((ipos >= 0) && (itemp < pdata[ipos]))
+		{
+			pdata[ipos + 1] = pdata[ipos];
+			ipos--;
+		}
+		pdata[ipos + 1] = itemp;
+	}
+	
+}
+int main()
+{
+	int data[] = { 10,9,8,7,6,5,4 };
+	int i;
+	InsertSort(data, 7);
+	for (i = 0;i < 7;i++)
+	{
+		printf("%d\n", data[i]);
+	}
+	system("pause");
+	return 0;
+}
