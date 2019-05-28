@@ -57,3 +57,36 @@ int Partition(int *l, int low, int high)
 	}
 	return low;//返回中间值的序号
 }
+
+
+
+
+
+
+简易写法
+
+int quick_sort(int data[],int began,int end)
+{
+    int i = began,j = end;
+    if(began<end)
+    {
+        while(i<j)
+        {
+            if(data[i]>=data[i+1])
+            {
+                swap(&data[i],&data[i+1]);
+                i++;
+            }
+            else
+            {
+                swap(&data[i+1],&data[j]);
+                j--;
+            }
+        }
+        quick_sort(data,began,i-1);
+        quick_sort(data,i+1,end);
+    }
+    return 0;
+}
+
+
