@@ -1,0 +1,47 @@
+f(1)=m; 第一项的值
+f(2)=n;第二项的值
+f(p)=f(p-1)+f(p-1);p>2;
+方法1：
+long f(long n,long p,long q) n为第n项，p为第1项的值，q为第2项的值
+{
+if (n==1)
+{
+return p;
+}
+if(n==2)
+{
+return q;
+}
+if(n>2)
+{
+return f(n-1)+f(n-2);
+}
+if(n<1)
+{
+throw exception("输入错误");
+return 0;
+}
+}
+方法2
+long f(long n,long p,long q)
+{
+long temp[2];
+temp[0]=p;
+temnp[1]=q;
+if(n==1)
+{
+return temp[0];
+}
+if(n==2)
+{
+return temp[1];
+}
+for(long index=3;index<x;index++)
+{
+long temp1=temp[0];
+long temp2=temp[1];
+temp[0]=temp2;
+temp[1]=temp1+temp2;
+}
+return temp[1];
+}
