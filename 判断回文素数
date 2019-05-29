@@ -1,0 +1,33 @@
+#include <stdio.h>
+int IsPrime(int x)
+{
+	if (x == 0 || x == 1)
+		return 0;
+	for (int i = 2; i <= x / 2; i++)
+		if (x % i == 0)
+			return 0;
+	return 1;
+}
+int IsRevrse(int x)
+{
+	int temp = 0, xs = x;
+	while (x)
+	{
+		temp = (temp * 10 + x % 10);
+		x = x / 10;
+		printf("%d %d\n", temp, x);
+	}
+	printf("\n");
+	return xs == temp ? 1 : 0;
+}
+int main()
+{
+	int l, r, cnt = 0;
+	scanf("%d%d", &l, &r);
+	for (int i = l; i <= r; i++)
+		if (IsRevrse(i) && IsPrime(i))
+			cnt++;
+	printf("%d\n", cnt);
+	system("pause");
+	return 0;
+}
