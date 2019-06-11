@@ -238,3 +238,32 @@ void searchmid(struct link *head)//快慢指针，找到中间的节点 偶数�
 	mid = p->data;
 	printf("%d\n", mid);
 }
+
+struct link*delete_repeat(struct link *head)//删除重复的节点
+{
+	struct link*p1 = head, *p2, *p3;
+	if (head == NULL || head->next == NULL)
+	{
+		return head;
+	}
+	while (p1->next != NULL)
+	{
+		p2 = p1->next;
+		p3 = p1;
+		while (p2 != NULL)
+		{
+			if (p2->data == p3->data)
+			{
+				p2= p2->next;
+				p3->next = p2;
+			}
+			else
+			{
+				p2 = p2->next;
+				p3 = p3->next;
+			}
+		}
+		p1 = p1->next;
+	}
+	return head;
+}
