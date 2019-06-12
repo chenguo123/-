@@ -252,7 +252,7 @@ struct link*delete_repeat(struct link *head)//删除重复的节点
 		p3 = p1;
 		while (p2 != NULL)
 		{
-			if (p2->data == p3->data)
+			if (p2->data == p1->data)
 			{
 				p2= p2->next;
 				p3->next = p2;
